@@ -1,6 +1,7 @@
 package engine.api.controllers
 
 import engine.models.Answer
+import engine.models.AnswerRequest
 import engine.models.FAILURE
 import engine.models.Quiz
 import engine.models.SUCCESS
@@ -14,12 +15,12 @@ class QuizController: QuizApi {
             title = "The Java Logo",
             text = "What is depicted on the Java logo?",
             options = listOf("Robot", "Tea leaf", "Cup of coffee", "Bug"),
-            answer = 2
+            answer = listOf(2)
         )
     }
 
-    override fun answerQuiz(answer: Int): Answer {
-        if (answer == 2) {
+    override fun answerQuiz(req: AnswerRequest): Answer {
+        if (req.answer == listOf(2)) {
             return Answer(
                 success = true,
                 feedback = SUCCESS

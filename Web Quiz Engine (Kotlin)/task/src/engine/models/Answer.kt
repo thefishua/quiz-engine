@@ -7,3 +7,7 @@ data class Answer (
     val success: Boolean,
     val feedback: String
 )
+
+data class AnswerRequest (
+    val answer: List<Int>
+)

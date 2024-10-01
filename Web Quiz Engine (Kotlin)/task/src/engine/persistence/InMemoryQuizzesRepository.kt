@@ -1,6 +1,7 @@
 package engine.persistence
 
 import engine.models.Answer
+import engine.models.AnswerRequest
 import engine.models.FAILURE
 import engine.models.Quiz
 import engine.models.QuizResponse
@@ -44,18 +45,14 @@ class InMemoryQuizzesRepository(
         }
     }
 
-    override fun solveById(id: Int, answer: Int): Answer {
+    override fun solveById(id: Int, req: AnswerRequest): Answer {
         val quiz = quizzes[id] ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "quiz not found")
-        return when (quiz.answer) {
-            answer -> Answer(
-                success = true,
-                feedback = SUCCESS
-            )
-
-            else -> Answer(
-                success = false,
-                feedback = FAILURE
-            )
-        }
+        return if (req.answer == quiz.answer) Answer(
+            success = true,
+            feedback = SUCCESS
+        ) else Answer(
+            success = false,
+            feedback = FAILURE
+        )
     }
 }

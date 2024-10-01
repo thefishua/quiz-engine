@@ -1,6 +1,7 @@
 package engine.api.controllers
 
 import engine.models.Answer
+import engine.models.AnswerRequest
 import engine.models.Quiz
 import engine.models.QuizId
 import engine.models.QuizRequest
@@ -32,7 +33,7 @@ class QuizzesController(
         return quizzesRepository.findAll()
     }
 
-    override fun solveById(id: Int, answer: Int): Answer {
-        return quizzesRepository.solveById(id, answer)
+    override fun solveById(id: Int, req: AnswerRequest): Answer {
+        return quizzesRepository.solveById(id, req)
     }
 }
