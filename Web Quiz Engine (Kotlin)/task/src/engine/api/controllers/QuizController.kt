@@ -1,7 +1,9 @@
 package engine.api.controllers
 
 import engine.models.Answer
+import engine.models.FAILURE
 import engine.models.Quiz
+import engine.models.SUCCESS
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -20,12 +22,12 @@ class QuizController: QuizApi {
         if (answer == 2) {
             return Answer(
                 success = true,
-                feedback = "Congratulations, you're right!"
+                feedback = SUCCESS
             )
         }
         return Answer(
-            success=false,
-            feedback="Wrong answer! Please, try again."
+            success = false,
+            feedback = FAILURE
         )
     }
 }

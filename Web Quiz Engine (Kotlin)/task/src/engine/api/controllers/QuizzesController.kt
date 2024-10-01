@@ -1,5 +1,6 @@
 package engine.api.controllers
 
+import engine.models.Answer
 import engine.models.Quiz
 import engine.models.QuizId
 import engine.models.QuizRequest
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 class QuizzesController(
     val quizzesRepository: QuizzesRepository,
 ): QuizzesApi {
-    override fun createQuiz(quiz: QuizRequest): QuizResponse {
+    override fun create(quiz: QuizRequest): QuizResponse {
         return quizzesRepository.save(
             Quiz(
                 id = QuizId.getNextInt(),
@@ -23,7 +24,15 @@ class QuizzesController(
         )
     }
 
-    override fun getQuizById(id: Int): QuizResponse {
+    override fun findById(id: Int): QuizResponse {
         return quizzesRepository.findById(id)
+    }
+
+    override fun findAll(): List<QuizResponse> {
+        return quizzesRepository.findAll()
+    }
+
+    override fun solveById(id: Int, answer: Int): Answer {
+        return quizzesRepository.solveById(id, answer)
     }
 }
