@@ -25,7 +25,7 @@ class QuizzesController(
         )
     }
 
-    override fun findById(id: Int): QuizResponse {
+    override fun findById(id: Long): QuizResponse {
         return quizzesRepository.findById(id)
     }
 
@@ -33,7 +33,7 @@ class QuizzesController(
         return quizzesRepository.findAll()
     }
 
-    override fun solveById(id: Int, req: AnswerRequest): Answer {
+    override fun solveById(id: Long, req: AnswerRequest): Answer {
         return quizzesRepository.solveById(id, req)
     }
 }

@@ -1,19 +1,30 @@
 package engine.models
 
+import jakarta.persistence.ElementCollection
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
 
 object QuizId {
-    private var id = 1
-    fun getNextInt(): Int = id++
+    private var id: Long = 1
+    fun getNextInt(): Long = id++
 }
-
+@Entity
+@Table(name = "quizdb")
 data class Quiz (
-    val id: Int,
-    val title: String,
-    val text: String,
-    val options: List<String>,
-    val answer: List<Int>,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    val id: Long = 0,
+    val title: String = "",
+    val text: String = "",
+    @ElementCollection
+    val options: List<String> = listOf(),
+    @ElementCollection
+    val answer: List<Int> = listOf(),
 )
 
 data class QuizRequest (
@@ -27,7 +38,7 @@ data class QuizRequest (
 )
 
 data class QuizResponse (
-    val id: Int,
+    val id: Long,
     val title: String,
     val text: String,
     val options: List<String>,

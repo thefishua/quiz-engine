@@ -6,8 +6,8 @@ import engine.models.Quiz
 import engine.models.QuizResponse
 
 interface QuizzesRepository {
-    fun findById(id: Int): QuizResponse
+    fun findById(id: Long): QuizResponse
     fun findAll(): List<QuizResponse>
     fun save(quiz: Quiz): QuizResponse
-    fun solveById(id: Int, req: AnswerRequest): Answer
+    fun solveById(id: Long, req: AnswerRequest): Answer
 }

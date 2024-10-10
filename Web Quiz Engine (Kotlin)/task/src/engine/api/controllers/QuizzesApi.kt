@@ -21,7 +21,7 @@ interface QuizzesApi {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    fun findById(@PathVariable id: Int): QuizResponse
+    fun findById(@PathVariable id: Long): QuizResponse
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
@@ -29,5 +29,5 @@ interface QuizzesApi {
 
     @PostMapping("/{id}/solve")
     @ResponseStatus(HttpStatus.OK)
-    fun solveById(@PathVariable id: Int, @RequestBody req: AnswerRequest): Answer
+    fun solveById(@PathVariable id: Long, @RequestBody req: AnswerRequest): Answer
 }

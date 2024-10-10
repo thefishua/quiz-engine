@@ -12,9 +12,9 @@ import org.springframework.web.server.ResponseStatusException
 
 @Repository
 class InMemoryQuizzesRepository(
-    private val quizzes: MutableMap<Int, Quiz> = mutableMapOf()
-): QuizzesRepository, MutableMap<Int, Quiz> by quizzes {
-    override fun findById(id: Int): QuizResponse {
+    private val quizzes: MutableMap<Long, Quiz> = mutableMapOf()
+): QuizzesRepository, MutableMap<Long, Quiz> by quizzes {
+    override fun findById(id: Long): QuizResponse {
         val quiz = quizzes[id] ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "quiz not found")
         return QuizResponse(
             id = quiz.id,
@@ -45,7 +45,7 @@ class InMemoryQuizzesRepository(
         }
     }
 
-    override fun solveById(id: Int, req: AnswerRequest): Answer {
+    override fun solveById(id: Long, req: AnswerRequest): Answer {
         val quiz = quizzes[id] ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "quiz not found")
         return if (req.answer == quiz.answer) Answer(
             success = true,
