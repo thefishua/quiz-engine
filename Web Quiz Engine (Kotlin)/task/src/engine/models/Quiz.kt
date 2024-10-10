@@ -19,10 +19,10 @@ data class Quiz (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     val id: Long = 0,
-    val title: String = "",
-    val text: String = "",
+    val title: String? = null,
+    val text: String? = null,
     @ElementCollection
-    val options: List<String> = listOf(),
+    val options: List<String>? = null,
     @ElementCollection
     val answer: List<Int> = listOf(),
 )

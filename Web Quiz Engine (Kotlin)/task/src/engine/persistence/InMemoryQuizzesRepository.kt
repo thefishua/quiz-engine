@@ -13,39 +13,39 @@ import org.springframework.web.server.ResponseStatusException
 @Repository
 class InMemoryQuizzesRepository(
     private val quizzes: MutableMap<Long, Quiz> = mutableMapOf()
-): QuizzesRepository, MutableMap<Long, Quiz> by quizzes {
-    override fun findById(id: Long): QuizResponse {
+): MutableMap<Long, Quiz> by quizzes {
+    fun findById(id: Long): QuizResponse {
         val quiz = quizzes[id] ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "quiz not found")
         return QuizResponse(
             id = quiz.id,
-            title = quiz.title,
-            text = quiz.text,
-            options = quiz.options,
+            title = quiz.title?: "",
+            text = quiz.text?: "",
+            options = quiz.options?: listOf(),
         )
     }
 
-    override fun save(quiz: Quiz): QuizResponse {
+    fun save(quiz: Quiz): QuizResponse {
         quizzes[quiz.id] = quiz
         return QuizResponse(
             id = quiz.id,
-            title = quiz.title,
-            text = quiz.text,
-            options = quiz.options,
+            title = quiz.title?: "",
+            text = quiz.text?: "",
+            options = quiz.options?: listOf(),
         )
     }
 
-    override fun findAll(): List<QuizResponse> {
+    fun findAll(): List<QuizResponse> {
         return quizzes.values.map { quiz ->
             QuizResponse(
                 id = quiz.id,
-                title = quiz.title,
-                text = quiz.text,
-                options = quiz.options,
+                title = quiz.title?: "",
+                text = quiz.text?: "",
+                options = quiz.options?: listOf(),
             )
         }
     }
 
-    override fun solveById(id: Long, req: AnswerRequest): Answer {
+    fun solveById(id: Long, req: AnswerRequest): Answer {
         val quiz = quizzes[id] ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "quiz not found")
         return if (req.answer == quiz.answer) Answer(
             success = true,
