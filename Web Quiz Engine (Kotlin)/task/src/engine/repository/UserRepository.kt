@@ -1,9 +1,8 @@
 package engine.repository
 
-import engine.models.Quiz
+import engine.models.User
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface QuizzesRepository: CrudRepository<Quiz, Long> {}
-
+interface UserRepository: CrudRepository<User, String>

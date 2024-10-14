@@ -5,14 +5,12 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
 
-object QuizId {
-    private var id: Long = 1
-    fun getNextInt(): Long = id++
-}
 @Entity
 @Table(name = "quizdb")
 data class Quiz (
@@ -25,6 +23,9 @@ data class Quiz (
     val options: List<String>? = null,
     @ElementCollection
     val answer: List<Int> = listOf(),
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    val user: User
 )
 
 data class QuizRequest (
