@@ -29,7 +29,7 @@ class SecurityConfig(
             .authorizeHttpRequests(
                 { auth ->
                     auth
-                        .requestMatchers("/api/register", "/actuator/shutdown", "/error/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/register", "/actuator/shutdown", "/error/**").permitAll()
                         .anyRequest().authenticated()
                 }
             )

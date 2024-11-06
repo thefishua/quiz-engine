@@ -8,6 +8,7 @@ import engine.models.QuizResponse
 import engine.models.SUCCESS
 import engine.models.User
 import engine.repository.QuizzesRepository
+import engine.security.UserPrincipal
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException

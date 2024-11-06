@@ -2,6 +2,7 @@ package engine.service
 
 import engine.models.User
 import engine.repository.UserRepository
+import engine.security.Authority
 import org.springframework.http.HttpStatus
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
