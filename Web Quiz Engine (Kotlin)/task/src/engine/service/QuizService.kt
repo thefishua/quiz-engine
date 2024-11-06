@@ -8,7 +8,6 @@ import engine.models.QuizResponse
 import engine.models.SUCCESS
 import engine.models.User
 import engine.repository.QuizzesRepository
-import engine.security.UserPrincipal
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
@@ -46,7 +45,7 @@ class QuizService(private val quizzesRepository: QuizzesRepository) {
     }
     fun solveById(id: Long, req: AnswerRequest): Answer {
         val quiz = quizzesRepository.findById(id).orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, "quiz not found") }
-        return if (quiz.answer.containsAll(req.answer)) Answer(
+        return if (req.answer == quiz.answer) Answer(
             success = true,
             feedback = SUCCESS
         ) else Answer(
