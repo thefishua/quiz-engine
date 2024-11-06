@@ -28,7 +28,7 @@ data class User (
 
 data class UserRequest(
     @field:NotNull
-    @Email(regexp = "\\w+@\\w+\\.\\w+")
+    @field:Email(regexp = "\\w+@\\w+\\.\\w+")
     val email: String,
 
     @field:NotBlank

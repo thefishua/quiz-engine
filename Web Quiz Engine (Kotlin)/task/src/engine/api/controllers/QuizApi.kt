@@ -12,6 +12,7 @@ import jakarta.validation.Valid
 import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties.Http
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -32,7 +33,7 @@ interface QuizApi {
 
     @PostMapping("/quizzes")
     @ResponseStatus(HttpStatus.OK)
-    fun create(@RequestBody quiz: @Valid QuizRequest, @AuthenticationPrincipal userPrincipal: UserPrincipal): QuizResponse
+    fun create(@Valid @RequestBody quiz: QuizRequest, @AuthenticationPrincipal userPrincipal: UserPrincipal): QuizResponse
 
     @GetMapping("/quizzes/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -48,7 +49,7 @@ interface QuizApi {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.OK)
-    fun registerNewUser(@RequestBody user: @Valid UserRequest)
+    fun registerNewUser(@Valid @RequestBody user: UserRequest)
 
     @DeleteMapping("/quizzes/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
