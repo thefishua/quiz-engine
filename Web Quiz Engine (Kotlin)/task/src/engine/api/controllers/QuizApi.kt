@@ -2,9 +2,7 @@ package engine.api.controllers
 
 import engine.models.Answer
 import engine.models.AnswerRequest
-import engine.models.Completed
 import engine.models.CompletedResponse
-import engine.models.Quiz
 import engine.models.QuizRequest
 import engine.models.QuizResponse
 import engine.models.UserRequest
@@ -45,7 +43,7 @@ interface QuizApi {
     @GetMapping("/quizzes")
     @ResponseStatus(HttpStatus.OK)
     fun findAll(
-        @RequestParam(defaultValue = "0") pageNumber: @Min(0) Int,
+        @RequestParam(defaultValue = "0") page: @Min(0) Int,
         @RequestParam(defaultValue = "10") pageSize: @Min(10) @Max(30) Int,
     ): Page<QuizResponse>
 

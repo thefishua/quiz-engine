@@ -76,8 +76,8 @@ class QuizController(
         )
     }
 
-    override fun findAll(pageNumber: Int, pageSize: Int): Page<QuizResponse> {
-        val quizPages = quizService.findAll(pageNumber, pageSize)
+    override fun findAll(page: Int, pageSize: Int): Page<QuizResponse> {
+        val quizPages = quizService.findAll(page, pageSize)
         return quizPages.map { quiz ->
             QuizResponse(
                 id = quiz.id,

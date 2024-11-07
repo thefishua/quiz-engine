@@ -49,7 +49,7 @@ class QuizService(private val quizzesRepository: QuizzesRepository) {
         if (quiz.user.email == user.email) {
             quizzesRepository.deleteById(id)
         } else {
-            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "user not the same")
+            throw ResponseStatusException(HttpStatus.FORBIDDEN, "user not the same")
         }
     }
 }
