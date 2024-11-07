@@ -23,6 +23,7 @@ data class User (
     @Enumerated(EnumType.STRING)
     var authority: Authority,
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
+    @JsonIgnore
     val quizzes: List<Quiz>? = null,
 )
 

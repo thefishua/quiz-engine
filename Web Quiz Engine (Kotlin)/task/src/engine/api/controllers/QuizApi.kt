@@ -2,14 +2,17 @@ package engine.api.controllers
 
 import engine.models.Answer
 import engine.models.AnswerRequest
+import engine.models.Completed
+import engine.models.CompletedResponse
 import engine.models.Quiz
 import engine.models.QuizRequest
 import engine.models.QuizResponse
-import engine.models.User
 import engine.models.UserRequest
 import engine.security.UserPrincipal
 import jakarta.validation.Valid
-import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties.Http
+import jakarta.validation.constraints.Max
+import jakarta.validation.constraints.Min
+import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 
 @RequestMapping("/api")
@@ -40,11 +44,14 @@ interface QuizApi {
 
     @GetMapping("/quizzes")
     @ResponseStatus(HttpStatus.OK)
-    fun findAll(): List<QuizResponse>
+    fun findAll(
+        @RequestParam(defaultValue = "0") pageNumber: @Min(0) Int,
+        @RequestParam(defaultValue = "10") pageSize: @Min(10) @Max(30) Int,
+    ): Page<QuizResponse>
 
     @PostMapping("/quizzes/{id}/solve")
     @ResponseStatus(HttpStatus.OK)
-    fun solveById(@PathVariable id: Long, @RequestBody req: AnswerRequest): Answer
+    fun solveById(@PathVariable id: Long, @RequestBody req: AnswerRequest, @AuthenticationPrincipal userPrincipal: UserPrincipal): Answer
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.OK)
@@ -53,4 +60,12 @@ interface QuizApi {
     @DeleteMapping("/quizzes/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun delete(@PathVariable id: Long, @AuthenticationPrincipal userPrincipal: UserPrincipal)
+
+    @GetMapping("/quizzes/completed")
+    @ResponseStatus(HttpStatus.OK)
+    fun completed(
+        @RequestParam(defaultValue = "0") page: @Min(0) Int,
+        @RequestParam(defaultValue = "10") pageSize: @Min(10) @Max(30) Int,
+        @AuthenticationPrincipal userPrincipal: UserPrincipal,
+    ): Page<CompletedResponse>
 }

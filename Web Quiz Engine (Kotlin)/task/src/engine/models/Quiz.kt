@@ -1,5 +1,7 @@
 package engine.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import jakarta.persistence.CascadeType
 import jakarta.persistence.ElementCollection
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -7,9 +9,11 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "quizdb")
@@ -25,7 +29,11 @@ data class Quiz (
     val answer: List<Int> = listOf(),
     @ManyToOne
     @JoinColumn(name = "USER_ID")
-    val user: User
+    @JsonIgnore
+    val user: User,
+    @JsonIgnore
+    @OneToMany(mappedBy = "quiz", cascade = [CascadeType.ALL])
+    val completions: MutableList<Completed> = mutableListOf()
 )
 
 data class QuizRequest (
